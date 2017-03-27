@@ -6,15 +6,37 @@
   </div>
 </template>
 <script>
-  export default {
-    components: {
+  module.exports = {
+    props:{
+      content:{
+        type:String,
+        required: false,
+        twoWay:true
+      },
+      text:{
+        type:String,
+        required: false,
+        twoWay:true
+      },
+      formatText:{
+        type:String,
+        required: false,
+        twoWay:true
+      },
     },
     attached(){
-      var editor = new wangEditor('vue-editor');
+      const self = this;
+      const editor = new wangEditor('vue-editor');
+      editor.onchange = function(){
+        self.content = this.$txt.html();
+        self.text = this.$txt.text();
+        self.formatText = this.$txt.formatText();
+      };
       editor.create();
     },  
     data(){
       return{
+        editor:''
       };
     },
     methods:{
@@ -24,13 +46,12 @@
   };
 </script>
 <style scoped lang='less'>
-  .wangEditor-container{
-    height: 100% !important;
-  }
   .vue-s-editor{
     height: 100%;
+    width: 100%;
     .vue-s-editor-main{
       height: 100%;
+      max-height: 100%;
     }
   }
 </style>

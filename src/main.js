@@ -23,6 +23,12 @@ router.map({
       require(['./views/index.vue'], resolve);
     }
   },
+  '/home': {
+    name: 'home',
+    component(resolve) {
+      require(['./views/home.vue'], resolve);
+    }
+  },
 });
 sync(store, router);
 router.start(App, '#app');
